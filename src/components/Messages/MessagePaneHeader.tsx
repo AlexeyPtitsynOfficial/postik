@@ -1,0 +1,101 @@
+import IconButton from "@mui/joy/IconButton";
+import { UserProps } from "./DataTypes";
+import Stack from "@mui/joy/Stack";
+import Avatar from "@mui/joy/Avatar";
+import { toggleMessagesPane } from "./utils/utils";
+
+import ArrowBackIosNewRoundedIcon from "@mui/icons-material/ArrowBackIosNewRounded";
+import CircleIcon from "@mui/icons-material/Circle";
+import PhoneInTalkRoundedIcon from "@mui/icons-material/PhoneInTalkRounded";
+import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+
+import Typography from "@mui/joy/Typography";
+import Chip from "@mui/joy/Chip";
+import Button from "@mui/joy/Button";
+
+type MessagePaneHeaderProps = {
+  sender: UserProps;
+};
+const MessagePaneHeader = (props: MessagePaneHeaderProps) => {
+  const { sender } = props;
+
+  return (
+    <Stack
+      direction="row"
+      justifyContent="space-between"
+      sx={{
+        borderBottom: "1px solid",
+        borderColor: "divider",
+        backgroundColor: "background.body",
+      }}
+      py={{ xs: 2, md: 2 }}
+      px={{ xs: 1, md: 2 }}
+    >
+      <Stack direction="row" spacing={{ xs: 1, md: 2 }} alignItems="center">
+        <IconButton
+          variant="plain"
+          color="neutral"
+          size="sm"
+          sx={{
+            display: { xs: "inline-flex", sm: "none" },
+          }}
+          onClick={() => toggleMessagesPane()}
+        >
+          <ArrowBackIosNewRoundedIcon />
+        </IconButton>
+        <Avatar size="lg" src={sender.avatar} />
+        <div>
+          <Typography
+            fontWeight="lg"
+            fontSize="lg"
+            component="h2"
+            noWrap
+            endDecorator={
+              sender.online ? (
+                <Chip
+                  variant="outlined"
+                  size="sm"
+                  color="neutral"
+                  sx={{ borderRadius: "sm" }}
+                  startDecorator={
+                    <CircleIcon sx={{ fontSize: 8 }} color="success" />
+                  }
+                  slotProps={{ root: { component: "span" } }}
+                >
+                  Online
+                </Chip>
+              ) : undefined
+            }
+          >
+            {sender.name}
+          </Typography>
+          <Typography level="body-sm">{sender.username}</Typography>
+        </div>
+      </Stack>
+      <Stack spacing={1} direction="row" alignItems="center">
+        <Button
+          startDecorator={<PhoneInTalkRoundedIcon />}
+          color="neutral"
+          variant="outlined"
+          size="sm"
+          sx={{ display: { xs: "none", md: "inline-flex" } }}
+        >
+          Call
+        </Button>
+        <Button
+          color="neutral"
+          variant="outlined"
+          size="sm"
+          sx={{ display: { xs: "none", md: "inline-flex" } }}
+        >
+          View Profile
+        </Button>
+        <IconButton size="sm" variant="plain" color="neutral">
+          <MoreVertRoundedIcon />
+        </IconButton>
+      </Stack>
+    </Stack>
+  );
+};
+
+export default MessagePaneHeader;

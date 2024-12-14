@@ -1,0 +1,28 @@
+@import "mixins";
+
+$primary-color: #0070f3;
+$accent-color: #656ed1;
+$font-stack: Arial, sans-serif;
+
+body {
+  font-family: $font-stack;
+  color: $primary-color;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.action-button {
+  @include button-view;
+  background-color: $accent-color;
+  color: white;
+  &:hover {
+    background-color: #7C87FF;
+  }
+}
