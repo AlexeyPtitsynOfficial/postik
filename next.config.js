@@ -1,5 +1,4 @@
 module.exports = {
-  basePath: "/postik",
   images: {
     domains: ["localhost"],
     remotePatterns: [
@@ -40,7 +39,7 @@ module.exports = {
     return [
       {
         source: "/messages",
-        destination: "http://localhost:3001",
+        destination: "http://localhost:3002",
       },
     ];
   },

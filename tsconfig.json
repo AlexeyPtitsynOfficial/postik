@@ -34,7 +34,7 @@
   "include": [
     "src/**/*",
     ".next/types/**/*.ts"
-, "../postik-messages/src/components/Messages/data.tsx", "../postik-messages/src/components/Messages/DataTypes.tsx", "../postik-messages/src/app/utils/utils.tsx"  ],
+, "../postik-messages/src/components/Messages/data.tsx", "../postik-messages/src/components/Messages/DataTypes.tsx", "../postik-messages/src/app/utils/utils.tsx", "../postik-auth/src/lib/auth.ts" ,"types/**/*.ts" ],
   "exclude": [
     "node_modules"
   ]

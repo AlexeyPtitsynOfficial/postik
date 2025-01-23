@@ -37,6 +37,7 @@ import { useDispatch } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { memo } from "react";
+import { useSession } from "next-auth/react";
 
 function ColorSchemeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -72,7 +73,12 @@ function ColorSchemeToggle() {
 const Header = () => {
   const [open, setOpen] = React.useState(false);
   const pathname = usePathname();
-  const auth = useAuth();
+
+  //const auth = useAuth();
+
+  const session = useSession();
+  const user = session!.data!.user;
+
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -231,7 +237,7 @@ const Header = () => {
           </Menu>
         </Dropdown>
         <ColorSchemeToggle />
-        {auth.user ? (
+        {user ? (
           <Dropdown id="dropdown">
             <MenuButton
               variant="plain"
@@ -272,10 +278,10 @@ const Header = () => {
                   />
                   <Box sx={{ ml: 1.5 }}>
                     <Typography level="title-sm" textColor="text.primary">
-                      {auth.user.UserName}
+                      {user.UserName}
                     </Typography>
                     <Typography level="body-xs" textColor="text.tertiary">
-                      {auth.user.sub}
+                      {/*user.sub*/}
                     </Typography>
                   </Box>
                 </Box>
@@ -306,7 +312,7 @@ const Header = () => {
           </Dropdown>
         ) : (
           <Button variant="plain">
-            <Link href="/auth/signin">Sign in</Link>
+            <Link href="localhost:3001/auth/signin">Sign in</Link>
           </Button>
         )}
       </Box>

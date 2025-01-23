@@ -19,6 +19,7 @@ import ru from "javascript-time-ago/locale/ru";
 
 import localFont from "next/font/local";
 import { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ru);
@@ -47,77 +48,79 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body>
-        <StoreProvider>
-          <MyApolloProvider>
-            <CssVarsProvider>
-              <CssBaseline />
-              <Box>
-                {drawerOpen && (
-                  <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
-                    <Navigation />
-                  </Layout.SideDrawer>
-                )}
-                <NavigationBottom />
-                <Layout.Root
-                  sx={{
-                    gridTemplateColumns: {
-                      xs: "minmax(200px, 1fr)",
-                      sm:
-                        pathname === "/messages"
-                          ? "1fr"
-                          : "minmax(120px, 200px) minmax(450px, 1fr)",
-                      md:
-                        pathname === "/messages"
-                          ? "1fr"
-                          : "minmax(160px, 300px) minmax(600px, 1fr) minmax(200px, 220px)",
-                    },
-                    ...(drawerOpen && {
-                      height: "100vh",
-                      overflow: "hidden",
-                    }),
-                  }}
-                >
-                  <Layout.Header>
-                    <Header />
-                  </Layout.Header>
-                  <Layout.SideNav
+        <SessionProvider>
+          <StoreProvider>
+            <MyApolloProvider>
+              <CssVarsProvider>
+                <CssBaseline />
+                <Box>
+                  {drawerOpen && (
+                    <Layout.SideDrawer onClose={() => setDrawerOpen(false)}>
+                      <Navigation />
+                    </Layout.SideDrawer>
+                  )}
+                  <NavigationBottom />
+                  <Layout.Root
                     sx={{
-                      display: {
-                        sm: pathname === "/messages" ? "none" : "initial",
-                        md: pathname === "/messages" ? "none" : "initial",
+                      gridTemplateColumns: {
+                        xs: "minmax(200px, 1fr)",
+                        sm:
+                          pathname === "/messages"
+                            ? "1fr"
+                            : "minmax(120px, 200px) minmax(450px, 1fr)",
+                        md:
+                          pathname === "/messages"
+                            ? "1fr"
+                            : "minmax(160px, 300px) minmax(600px, 1fr) minmax(200px, 220px)",
                       },
+                      ...(drawerOpen && {
+                        height: "100vh",
+                        overflow: "hidden",
+                      }),
                     }}
                   >
-                    <Navigation />
-                  </Layout.SideNav>
-                  <Layout.Main>
-                    <Box
+                    <Layout.Header>
+                      <Header />
+                    </Layout.Header>
+                    <Layout.SideNav
                       sx={{
-                        gridTemplateColumns:
-                          "repeat(auto-fit, minmax(240px, 1fr))",
-                        gap: 2,
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "center",
+                        display: {
+                          sm: pathname === "/messages" ? "none" : "initial",
+                          md: pathname === "/messages" ? "none" : "initial",
+                        },
                       }}
                     >
-                      {children}
-                    </Box>
-                  </Layout.Main>
-                  <Layout.SidePane
-                    sx={{
-                      display: {
-                        md: pathname === "/messages" ? "none" : "initial",
-                      },
-                    }}
-                  >
-                    <Sidebar />
-                  </Layout.SidePane>
-                </Layout.Root>
-              </Box>
-            </CssVarsProvider>
-          </MyApolloProvider>
-        </StoreProvider>
+                      <Navigation />
+                    </Layout.SideNav>
+                    <Layout.Main>
+                      <Box
+                        sx={{
+                          gridTemplateColumns:
+                            "repeat(auto-fit, minmax(240px, 1fr))",
+                          gap: 2,
+                          display: "flex",
+                          width: "100%",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {children}
+                      </Box>
+                    </Layout.Main>
+                    <Layout.SidePane
+                      sx={{
+                        display: {
+                          md: pathname === "/messages" ? "none" : "initial",
+                        },
+                      }}
+                    >
+                      <Sidebar />
+                    </Layout.SidePane>
+                  </Layout.Root>
+                </Box>
+              </CssVarsProvider>
+            </MyApolloProvider>
+          </StoreProvider>
+        </SessionProvider>
       </body>
     </html>
   );
